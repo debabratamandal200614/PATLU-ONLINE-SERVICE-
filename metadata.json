@@ -1,0 +1,8 @@
+{
+  "name": "Remix PATLU ONLINE SERVICE",
+  "description": "PATLU ONLINE SERVICE provides fast, reliable, and secure assistance with online forms, digital applications, document services, and government portal submissions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
