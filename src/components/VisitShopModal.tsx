@@ -32,16 +32,13 @@ export const VisitShopModal: React.FC<VisitShopModalProps> = ({
   if (!isOpen) return null;
 
   const handleGoogleMaps = () => {
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      SHOP_INFO.name + ' ' + SHOP_INFO.address + ' ' + SHOP_INFO.city
-    )}`;
-    safeOpenUrl(mapsUrl);
+    safeOpenUrl(SHOP_INFO.googleMapsUrl);
   };
 
   const handleWhatsApp = () => {
     const text = serviceName
-      ? `Hello PATLU ONLINE SERVICE! I want to visit your shop in Belda for: *${serviceName}*.\n\nPlease confirm your open hours and what documents to bring.`
-      : `Hello PATLU ONLINE SERVICE! I want to visit your shop in Belda. Please share your exact shop location and visiting details.`;
+      ? `Hello PATLU ONLINE SERVICE! I want to visit your shop in Balasundar (Bhowmik Para), Cooch Behar for: *${serviceName}*.\n\nPlease confirm your open hours and what documents to bring.`
+      : `Hello PATLU ONLINE SERVICE! I want to visit your shop in Balasundar (Bhowmik Para), Cooch Behar. Please share your exact shop location and visiting details.`;
     safeOpenUrl(getWhatsAppUrl(text));
   };
 
@@ -122,7 +119,7 @@ export const VisitShopModal: React.FC<VisitShopModalProps> = ({
                   {SHOP_INFO.name}
                 </span>
                 <span className="text-xs text-slate-700 block font-medium">
-                  {SHOP_INFO.address}, {SHOP_INFO.city}, West Bengal
+                  {SHOP_INFO.address}, {SHOP_INFO.city}
                 </span>
               </div>
             </div>
@@ -174,16 +171,17 @@ export const VisitShopModal: React.FC<VisitShopModalProps> = ({
           {/* Action Buttons */}
           <div className="space-y-2.5 pt-2">
             {/* Google Maps Button */}
-            <button
-              type="button"
+            <a
+              href={SHOP_INFO.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               id="visit-modal-maps-btn"
-              onClick={handleGoogleMaps}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-black bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-black bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer text-center"
             >
               <Navigation className="w-4 h-4" />
               <span>{language === 'bn' ? 'গুগল ম্যাপে দেখুন ও আসুন' : 'Get Directions on Google Maps'}</span>
               <ExternalLink className="w-3.5 h-3.5 ml-auto opacity-70" />
-            </button>
+            </a>
 
             {/* WhatsApp Inquiry Button */}
             <div className="grid grid-cols-2 gap-2">

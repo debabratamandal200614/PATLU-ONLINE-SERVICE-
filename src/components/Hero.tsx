@@ -165,13 +165,24 @@ export const Hero: React.FC<HeroProps> = ({
               <button
                 type="button"
                 id="hero-visit-shop-btn"
-                onClick={onVisitShop || onOpenApplyModal}
+                onClick={onVisitShop}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-black text-sm bg-rose-600 text-white hover:bg-rose-700 shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
-                title="Visit our shop counter in Belda, Paschim Medinipur"
+                title="Visit our shop counter in Balasundar (Bhowmik Para), Cooch Behar"
               >
                 <Store className="w-5 h-5" />
-                <span>{t('hero.applyBtn') || (language === 'bn' ? 'দোকানে আসুন' : 'Visit Shop')}</span>
+                <span>{language === 'bn' ? 'দোকানে আসুন' : 'Visit Shop'}</span>
                 <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                type="button"
+                id="hero-apply-online-btn"
+                onClick={onOpenApplyModal}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-black text-sm bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                title="Apply Online with Document Upload & Verification"
+              >
+                <FileCheck2 className="w-5 h-5" />
+                <span>{language === 'bn' ? 'অনলাইনে আবেদন' : 'Apply Online'}</span>
               </button>
 
               <button
@@ -214,12 +225,14 @@ export const Hero: React.FC<HeroProps> = ({
               </span>
               <span className="hidden sm:inline-block text-slate-300">|</span>
               <a
-                href="#contact"
+                href={SHOP_INFO.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-rose-600 hover:text-rose-700 font-bold transition-colors cursor-pointer"
-                title="Shop location: Belda, Paschim Medinipur"
+                title="Open Shop Location on Google Maps: BALASUNDAR (BHOWMIK PARA), COOCH BEHAR"
               >
                 <MapPin className="w-4 h-4 text-rose-600 shrink-0" />
-                <span>Shop Location: Belda, Paschim Medinipur (WB)</span>
+                <span>Shop Location: Balasundar (Bhowmik Para), Cooch Behar</span>
               </a>
             </div>
           </div>
@@ -324,7 +337,7 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
               <div className="text-left">
                 <div className="text-xs font-bold">1,200+ Reviews</div>
-                <div className="text-[10px] text-slate-300">Patna &amp; Online Users</div>
+                <div className="text-[10px] text-slate-300">Cooch Behar &amp; Online Users</div>
               </div>
             </div>
           </div>

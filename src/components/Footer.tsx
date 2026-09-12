@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <Phone className="w-4 h-4" />
               </a>
               <a
-                href="mailto:debabratamandal200615@gmail.com"
+                href="mailto:debabratamandal200614@gmail.com"
                 className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
                 title="Send Email"
               >

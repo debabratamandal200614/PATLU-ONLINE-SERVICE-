@@ -23,13 +23,15 @@ import { SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
 
 interface CyberCafeBannerProps {
-  onOpenApplyModal: (serviceName?: string) => void;
+  onOpenApplyModal?: (serviceName?: string) => void;
+  onVisitShop?: (serviceName?: string) => void;
   onOpenPaymentQrModal?: () => void;
   onViewChecklist?: (serviceName: string) => void;
 }
 
 export const CyberCafeBanner: React.FC<CyberCafeBannerProps> = ({
   onOpenApplyModal,
+  onVisitShop,
   onOpenPaymentQrModal,
   onViewChecklist,
 }) => {
@@ -142,7 +144,11 @@ export const CyberCafeBanner: React.FC<CyberCafeBannerProps> = ({
               <button
                 key={idx}
                 type="button"
-                onClick={() => onOpenApplyModal(svc.serviceQuery)}
+                onClick={() => {
+                  if (onVisitShop) onVisitShop(svc.serviceQuery);
+                  else if (onOpenApplyModal) onOpenApplyModal(svc.serviceQuery);
+                  else safeOpenUrl(SHOP_INFO.googleMapsUrl);
+                }}
                 className="p-3 sm:p-4 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-blue-500/50 transition-all text-left group cursor-pointer shadow-md hover:-translate-y-0.5"
               >
                 <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${svc.color} flex items-center justify-center text-white mb-2 shadow-sm`}>
@@ -183,9 +189,13 @@ export const CyberCafeBanner: React.FC<CyberCafeBannerProps> = ({
             <button
               type="button"
               id="cyber-banner-visit-btn"
-              onClick={() => onOpenApplyModal()}
+              onClick={() => {
+                if (onVisitShop) onVisitShop();
+                else if (onOpenApplyModal) onOpenApplyModal();
+                else safeOpenUrl(SHOP_INFO.googleMapsUrl);
+              }}
               className="px-4 py-2.5 rounded-xl text-xs font-black bg-rose-600 hover:bg-rose-500 text-white shadow-lg transition-all active:scale-95 cursor-pointer flex items-center gap-2"
-              title="Visit our physical shop counter in Belda"
+              title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar"
             >
               <Store className="w-4 h-4" />
               <span>Visit Shop</span>
@@ -275,7 +285,9 @@ export const CyberCafeBanner: React.FC<CyberCafeBannerProps> = ({
                   type="button"
                   onClick={() => {
                     setIsLightboxOpen(false);
-                    onOpenApplyModal();
+                    if (onVisitShop) onVisitShop();
+                    else if (onOpenApplyModal) onOpenApplyModal();
+                    else safeOpenUrl(SHOP_INFO.googleMapsUrl);
                   }}
                   className="px-4 py-2 rounded-xl text-xs font-black bg-rose-600 hover:bg-rose-500 text-white transition-colors cursor-pointer flex items-center gap-1.5"
                 >

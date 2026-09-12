@@ -19,6 +19,7 @@ import {
 import { ServiceItem, ApplicationRecord } from '../types';
 import { SERVICES_LIST } from '../data/servicesData';
 import { saveApplication } from '../utils/applicationStore';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface ApplicationFormProps {
   preselectedService: ServiceItem | null;
@@ -206,7 +207,7 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
   const handleCopyToken = () => {
     if (submittedApp) {
-      navigator.clipboard.writeText(submittedApp.token);
+      safeCopyToClipboard(submittedApp.token);
       setCopiedToken(true);
       setTimeout(() => setCopiedToken(false), 2500);
     }

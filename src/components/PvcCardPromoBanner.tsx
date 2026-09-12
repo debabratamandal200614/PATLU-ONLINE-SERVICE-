@@ -16,19 +16,22 @@ import {
   QrCode,
   Droplets,
   Layers,
-  Store
+  Store,
+  FileText
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
 
 interface PvcCardPromoBannerProps {
-  onOpenApplyModal: (serviceName?: string) => void;
+  onOpenApplyModal?: (serviceName?: string) => void;
+  onVisitShop?: (serviceName?: string) => void;
   onViewChecklist: (serviceName: string) => void;
 }
 
 export const PvcCardPromoBanner: React.FC<PvcCardPromoBannerProps> = ({
   onOpenApplyModal,
+  onVisitShop,
   onViewChecklist,
 }) => {
   const [selectedCardType, setSelectedCardType] = useState<string>('All (Ration / Aadhaar / Ayushman / Voter)');
@@ -226,26 +229,39 @@ export const PvcCardPromoBanner: React.FC<PvcCardPromoBannerProps> = ({
                 type="button"
                 id="pvc-ad-whatsapp-btn"
                 onClick={() => handleWhatsAppBooking()}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg hover:shadow-emerald-500/25 transition-all active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg hover:shadow-emerald-500/25 transition-all active:scale-95 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Order on WhatsApp for ₹100</span>
+                <span>WhatsApp Order</span>
+              </button>
+
+              <button
+                type="button"
+                id="pvc-ad-apply-online-btn"
+                onClick={() => {
+                  const svc = `PVC Card Order (Ration/Aadhaar/Ayushman/Voter @ ₹100) - ${selectedCardType}`;
+                  if (onOpenApplyModal) onOpenApplyModal(svc);
+                }}
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-md transition-all active:scale-95 cursor-pointer"
+                title="Order online by uploading card PDF"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Order Online</span>
               </button>
 
               <button
                 type="button"
                 id="pvc-ad-online-btn"
-                onClick={() =>
-                  onOpenApplyModal(
-                    `PVC Card Order (Ration/Aadhaar/Ayushman/Voter @ ₹100) - ${selectedCardType}`
-                  )
-                }
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-all active:scale-95 cursor-pointer"
-                title="Visit our physical shop counter in Belda"
+                onClick={() => {
+                  const svc = `PVC Card Order (Ration/Aadhaar/Ayushman/Voter @ ₹100) - ${selectedCardType}`;
+                  if (onVisitShop) onVisitShop(svc);
+                  else safeOpenUrl(SHOP_INFO.googleMapsUrl);
+                }}
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-all active:scale-95 cursor-pointer"
+                title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar (Opens Google Maps)"
               >
                 <Store className="w-4 h-4" />
                 <span>Visit Shop to Print</span>
-                <ArrowRight className="w-4 h-4" />
               </button>
 
               <button

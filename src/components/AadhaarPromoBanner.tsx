@@ -214,7 +214,7 @@ export const AadhaarPromoBanner: React.FC<AadhaarPromoBannerProps> = ({
                 id="aadhaar-ad-online-btn"
                 onClick={() => onOpenApplyModal('Aadhaar Address & Father/Husband Name Change (₹125 Offer)')}
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-all active:scale-95 cursor-pointer"
-                title="Visit our physical shop counter in Belda"
+                title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar"
               >
                 <Store className="w-4 h-4" />
                 <span>Visit Shop to Update</span>

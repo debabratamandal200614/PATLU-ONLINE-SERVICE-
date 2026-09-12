@@ -8,17 +8,20 @@ import {
   ExternalLink,
   ShieldCheck,
   ChevronRight,
-  ArrowUp
+  ArrowUp,
+  Lock
 } from 'lucide-react';
 import { PatluLogo } from './PatluLogo';
 import { SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
+import { useAuth } from '../context/AuthContext';
 
 interface ContactAndFooterProps {
   onOpenApplyModal: () => void;
 }
 
 export const ContactAndFooter: React.FC<ContactAndFooterProps> = ({ onOpenApplyModal }) => {
+  const { isAdminLoggedIn, openLoginModal } = useAuth();
   const scrollToTop = () => {
     try {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -79,11 +82,14 @@ export const ContactAndFooter: React.FC<ContactAndFooterProps> = ({ onOpenApplyM
 
               <button
                 type="button"
-                onClick={onOpenApplyModal}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all cursor-pointer"
+                id="footer-visit-shop-btn"
+                onClick={() => safeOpenUrl(SHOP_INFO.googleMapsUrl)}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-500 text-white shadow-lg transition-all cursor-pointer"
+                title="Open shop location on Google Maps"
               >
-                <span>Submit Form Request Online</span>
-                <ChevronRight className="w-4 h-4" />
+                <MapPin className="w-4 h-4" />
+                <span>Visit Shop (Google Maps)</span>
+                <ExternalLink className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -254,10 +260,10 @@ export const ContactAndFooter: React.FC<ContactAndFooterProps> = ({ onOpenApplyM
                 <div>
                   <span className="block">{SHOP_INFO.address}, {SHOP_INFO.city}</span>
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SHOP_INFO.name + ' ' + SHOP_INFO.address + ' ' + SHOP_INFO.city)}`}
+                    href={SHOP_INFO.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-1 text-xs text-blue-400 hover:text-blue-300 font-bold transition-colors"
+                    className="inline-flex items-center gap-1.5 mt-1 text-xs text-rose-400 hover:text-rose-300 font-bold transition-colors"
                     title="Open shop location on Google Maps"
                   >
                     <MapPin className="w-3.5 h-3.5 text-rose-400" />
@@ -314,14 +320,28 @@ export const ContactAndFooter: React.FC<ContactAndFooterProps> = ({ onOpenApplyM
             Authorized Common Services &amp; Digital Solutions.
           </div>
 
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={openLoginModal}
+              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer text-xs"
+              title="Cyber Cafe Owner / Admin Portal"
+            >
+              <Lock className="w-3.5 h-3.5 text-blue-400" />
+              <span>{isAdminLoggedIn ? 'Owner Admin Desk (Logged In)' : 'Owner / Admin Portal'}</span>
+            </button>
+
+            <span className="text-slate-700">&bull;</span>
+
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <span>Back to top</span>
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

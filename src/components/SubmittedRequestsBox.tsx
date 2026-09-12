@@ -39,6 +39,7 @@ import { SHOP_INFO } from '../data/servicesData';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { safeOpenUrl } from '../utils/safeNavigation';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface SubmittedRequestsBoxProps {
   onOpenApplyModal: (serviceName?: string) => void;
@@ -90,7 +91,9 @@ export const SubmittedRequestsBox: React.FC<SubmittedRequestsBoxProps> = ({
     loadRequests();
 
     const handleSavedEvent = () => {
-      loadRequests();
+      setTimeout(() => {
+        loadRequests();
+      }, 0);
     };
 
     window.addEventListener('patlu_application_saved', handleSavedEvent);
@@ -100,7 +103,7 @@ export const SubmittedRequestsBox: React.FC<SubmittedRequestsBoxProps> = ({
   }, []);
 
   const handleCopy = (refId: string) => {
-    navigator.clipboard.writeText(refId);
+    safeCopyToClipboard(refId);
     setCopiedId(refId);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -356,8 +359,8 @@ export const SubmittedRequestsBox: React.FC<SubmittedRequestsBoxProps> = ({
                   </h4>
                   <p className="text-slate-700 text-xs">
                     {language === 'bn'
-                      ? 'আবেদন গ্রহন, বাতিলকরণ ও ফি পেমেন্ট লিঙ্ক পরিচালনা করতে debabratamandal200615@gmail.com দিয়ে লগইন করুন।'
-                      : 'Log in as Owner (debabratamandal200615@gmail.com) to Accept/Reject requests, set Payment amounts & manage statuses.'}
+                      ? 'আবেদন গ্রহন, বাতিলকরণ ও ফি পেমেন্ট লিঙ্ক পরিচালনা করতে debabratamandal200614@gmail.com দিয়ে লগইন করুন।'
+                      : 'Log in as Owner (debabratamandal200614@gmail.com) to Accept/Reject requests, set Payment amounts & manage statuses.'}
                   </p>
                 </div>
               </div>

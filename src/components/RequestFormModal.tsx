@@ -20,6 +20,7 @@ import {
 import { SERVICE_CATEGORIES, SHOP_INFO } from '../data/servicesData';
 import { saveApplication } from '../utils/applicationStore';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface RequestFormModalProps {
   isOpen: boolean;
@@ -186,7 +187,7 @@ export const RequestFormModal: React.FC<RequestFormModalProps> = ({
 
   const handleCopyRef = () => {
     if (submittedRefId) {
-      navigator.clipboard.writeText(submittedRefId);
+      safeCopyToClipboard(submittedRefId);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }

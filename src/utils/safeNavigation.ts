@@ -18,7 +18,8 @@ export function getWhatsAppUrl(customMessage?: string): string {
 }
 
 export function getPhoneCallUrl(): string {
-  return `tel:+91${SHOP_INFO.phone}`;
+  const cleanPhone = SHOP_INFO.phone.replace(/[^0-9+]/g, '');
+  return `tel:${cleanPhone.startsWith('+') ? cleanPhone : `+91${cleanPhone}`}`;
 }
 
 export function getUpiPaymentUrl(amount: number, note?: string): string {
@@ -31,29 +32,43 @@ export function getUpiPaymentUrl(amount: number, note?: string): string {
 export function safeOpenUrl(url: string, target: '_blank' | '_self' = '_blank'): void {
   if (!url) return;
 
-  // Defer to next tick to ensure no React render or state synchronization is running
-  setTimeout(() => {
-    try {
-      const link = document.createElement('a');
-      link.href = url;
-      link.target = target;
-      link.rel = 'noopener noreferrer';
-      link.style.display = 'none';
-
-      document.body.appendChild(link);
-      link.click();
-
-      setTimeout(() => {
-        try {
-          if (link.parentNode) {
-            link.parentNode.removeChild(link);
-          }
-        } catch {
-          // ignore cleanup errors
-        }
-      }, 200);
-    } catch (err) {
-      console.warn('safeOpenUrl: Could not trigger navigation safely:', err);
+  // 1. Attempt window.open synchronously while the user gesture context is active
+  try {
+    const newWindow = window.open(url, target, 'noopener,noreferrer');
+    if (newWindow) {
+      try {
+        newWindow.opener = null;
+      } catch {
+        // Suppress any cross-origin opener access check
+      }
+      return;
     }
-  }, 0);
+  } catch {
+    // window.open blocked by iframe sandbox, proceed to anchor fallback
+  }
+
+  // 2. Synchronous anchor click fallback with noopener
+  try {
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = target;
+    link.rel = 'noopener noreferrer';
+    link.style.position = 'fixed';
+    link.style.left = '-9999px';
+    link.style.top = '-9999px';
+    link.style.opacity = '0';
+
+    document.body.appendChild(link);
+    link.click();
+
+    try {
+      if (link.parentNode) {
+        link.parentNode.removeChild(link);
+      }
+    } catch {
+      // ignore
+    }
+  } catch (err) {
+    console.warn('safeOpenUrl: Navigation could not be triggered by host container:', err);
+  }
 }

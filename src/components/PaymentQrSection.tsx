@@ -13,13 +13,14 @@ import {
 } from 'lucide-react';
 import { SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 export const PaymentQrSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [amount, setAmount] = useState<number>(100);
 
   const handleCopyUpi = () => {
-    navigator.clipboard.writeText(SHOP_INFO.upiId);
+    safeCopyToClipboard(SHOP_INFO.upiId);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };

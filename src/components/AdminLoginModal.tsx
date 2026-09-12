@@ -127,7 +127,7 @@ export const AdminLoginModal: React.FC = () => {
                     required
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
-                    placeholder="e.g. debabratamandal200615@gmail.com"
+                    placeholder="e.g. debabratamandal200614@gmail.com"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
@@ -162,7 +162,7 @@ export const AdminLoginModal: React.FC = () => {
               <div className="p-3 bg-blue-50/80 rounded-xl border border-blue-200/80 flex items-center justify-between text-xs">
                 <div className="space-y-0.5">
                   <span className="font-extrabold text-blue-900 block">Owner Credentials:</span>
-                  <span className="font-mono text-[11px] text-blue-700 block">debabratamandal200615@gmail.com</span>
+                  <span className="font-mono text-[11px] text-blue-700 block">debabratamandal200614@gmail.com</span>
                 </div>
                 <button
                   type="button"

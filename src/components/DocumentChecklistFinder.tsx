@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { SERVICE_CATEGORIES, SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface DocumentChecklistFinderProps {
   preSelectedServiceName?: string;
@@ -50,7 +51,7 @@ export const DocumentChecklistFinder: React.FC<DocumentChecklistFinderProps> = (
       (activeService.signatureSpecs ? `\n✍️ Signature: ${activeService.signatureSpecs}` : '') +
       `\n\nSend these to PATLU ONLINE SERVICE on WhatsApp: ${SHOP_INFO.displayPhone}`;
 
-    navigator.clipboard.writeText(text);
+    safeCopyToClipboard(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -268,19 +269,32 @@ export const DocumentChecklistFinder: React.FC<DocumentChecklistFinderProps> = (
             {/* Bottom direct apply action */}
             <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
               <span className="text-xs text-slate-500 font-medium">
-                Ready with these documents? Visit our shop counter in Belda for instant form submission!
+                Ready with these documents? Visit our shop counter in Balasundar (Bhowmik Para), Cooch Behar for instant form submission!
               </span>
 
-              <button
-                type="button"
-                id="checklist-apply-cta"
-                onClick={() => onApplyForThis(activeService.name)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black bg-rose-600 hover:bg-rose-700 text-white shadow-sm cursor-pointer active:scale-95 transition-all"
-                title="Visit our physical shop counter with these documents"
-              >
-                <Store className="w-4 h-4" />
-                <span>Visit Shop with Documents</span>
-              </button>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  id="checklist-apply-cta"
+                  onClick={() => onApplyForThis(activeService.name)}
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white shadow-sm cursor-pointer active:scale-95 transition-all"
+                  title="Apply Online with Document Upload"
+                >
+                  <FileCheck className="w-4 h-4" />
+                  <span>Apply Online Now</span>
+                </button>
+
+                <button
+                  type="button"
+                  id="checklist-visit-shop-cta"
+                  onClick={() => safeOpenUrl(SHOP_INFO.googleMapsUrl)}
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black bg-rose-600 hover:bg-rose-700 text-white shadow-sm cursor-pointer active:scale-95 transition-all"
+                  title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar"
+                >
+                  <Store className="w-4 h-4" />
+                  <span>Visit Shop</span>
+                </button>
+              </div>
             </div>
           </div>
         )}

@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { SHOP_INFO } from '../data/servicesData';
 import { getStoredApplications, StoredApplication } from '../utils/applicationStore';
-import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
+import { safeOpenUrl, getWhatsAppUrl, getUpiPaymentUrl } from '../utils/safeNavigation';
 
 interface DisplayOrder {
   refId: string;
@@ -191,8 +191,7 @@ export const StatusTracker: React.FC<{ initialSearchId?: string }> = ({ initialS
   };
 
   const handleUpiPay = (amount: number) => {
-    const upiUrl = `upi://pay?pa=${SHOP_INFO.whatsapp}@ybl&pn=PatluOnlineService&am=${amount}&cu=INR&tn=Fee_for_${searchedId}`;
-    safeOpenUrl(upiUrl);
+    safeOpenUrl(getUpiPaymentUrl(amount, `Fee_for_${searchedId}`));
   };
 
   return (

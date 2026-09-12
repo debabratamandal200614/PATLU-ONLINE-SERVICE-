@@ -285,7 +285,7 @@ export const AyushmanPromoBanner: React.FC<AyushmanPromoBannerProps> = ({
                 id="ayushman-ad-online-btn"
                 onClick={() => onOpenApplyModal('Ayushman Card (PM-JAY ₹5 Lakh Free Treatment) - e-KYC ₹50 | PVC Card ₹100')}
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-all active:scale-95 cursor-pointer"
-                title="Visit our physical shop counter in Belda"
+                title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar"
               >
                 <Store className="w-4 h-4" />
                 <span>Visit Shop for Card</span>

@@ -216,7 +216,7 @@ export const VoterIdPromoBanner: React.FC<VoterIdPromoBannerProps> = ({
                 id="voter-ad-online-btn"
                 onClick={() => onOpenApplyModal('Voter ID (New Form 6 / Correction Form 8) - ₹50 Offer')}
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-all active:scale-95 cursor-pointer"
-                title="Visit our physical shop counter in Belda"
+                title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar"
               >
                 <Store className="w-4 h-4" />
                 <span>Visit Shop to Apply</span>

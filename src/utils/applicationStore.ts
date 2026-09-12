@@ -82,10 +82,22 @@ export function getStoredApplications(): Record<string, StoredApplication> {
   }
 }
 
+function notifyStoreChange(detail?: unknown): void {
+  setTimeout(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('patlu_application_saved', { detail }));
+      }
+    } catch {
+      // ignore
+    }
+  }, 0);
+}
+
 export function restoreSampleApplications(): Record<string, StoredApplication> {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SAMPLE_APPLICATIONS));
-    window.dispatchEvent(new CustomEvent('patlu_application_saved'));
+    notifyStoreChange();
     return DEFAULT_SAMPLE_APPLICATIONS;
   } catch (err) {
     console.error('Error restoring sample applications:', err);
@@ -98,7 +110,7 @@ export function saveApplication(app: StoredApplication): void {
     const existing = getStoredApplications();
     existing[app.refId.toUpperCase().trim()] = app;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-    window.dispatchEvent(new CustomEvent('patlu_application_saved', { detail: app }));
+    notifyStoreChange(app);
   } catch (err) {
     console.error('Error saving application:', err);
   }
@@ -118,7 +130,7 @@ export function updateApplicationDetails(
         updatedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-      window.dispatchEvent(new CustomEvent('patlu_application_saved'));
+      notifyStoreChange();
     }
   } catch (err) {
     console.error('Error updating application details:', err);
@@ -137,7 +149,7 @@ export function deleteApplication(refId: string): void {
     const existing = getStoredApplications();
     delete existing[refId.toUpperCase().trim()];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-    window.dispatchEvent(new CustomEvent('patlu_application_saved'));
+    notifyStoreChange();
   } catch (err) {
     console.error('Error deleting application:', err);
   }
@@ -146,7 +158,7 @@ export function deleteApplication(refId: string): void {
 export function clearAllApplications(): void {
   try {
     localStorage.removeItem(STORAGE_KEY);
-    window.dispatchEvent(new CustomEvent('patlu_application_saved'));
+    notifyStoreChange();
   } catch (err) {
     console.error('Error clearing applications:', err);
   }

@@ -118,12 +118,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Shop Location */}
             <button
               type="button"
-              onClick={() => handleNavClick('contact')}
+              onClick={() => safeOpenUrl(SHOP_INFO.googleMapsUrl)}
               className="flex items-center gap-1.5 text-rose-300 hover:text-white font-bold transition-colors cursor-pointer"
-              title="Shop Location: Belda, Paschim Medinipur"
+              title="Open shop location on Google Maps (Balasundar, Cooch Behar)"
             >
               <MapPin className="w-3.5 h-3.5 text-rose-400" />
-              <span>Location: Belda (Paschim Medinipur)</span>
+              <span>Location: Balasundar, Cooch Behar</span>
             </button>
             <span className="text-slate-700">|</span>
             <LanguageSwitcher variant="topbar" />
@@ -202,13 +202,27 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               id="header-location-btn"
-              onClick={() => handleNavClick('contact')}
+              onClick={() => safeOpenUrl(SHOP_INFO.googleMapsUrl)}
               className="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#FEF2F2] text-[#DC2626] hover:bg-rose-100 border border-[#FECACA] transition-all cursor-pointer shadow-2xs active:scale-95"
-              title="Shop Location & Address (Belda, Paschim Medinipur)"
+              title="Open shop location on Google Maps (Balasundar, Cooch Behar)"
             >
               <MapPin className="w-4 h-4 text-[#DC2626]" />
-              <span>Location</span>
+              <span>Google Maps</span>
             </button>
+
+            {/* Apply Online Button */}
+            {onOpenApplyModal && (
+              <button
+                type="button"
+                id="header-apply-online-btn"
+                onClick={() => onOpenApplyModal()}
+                className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-blue-600 text-white hover:bg-blue-700 transition-all cursor-pointer shadow-xs active:scale-95"
+                title="Apply Online with Document Upload & OTP Verification"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Apply Online</span>
+              </button>
+            )}
 
             {/* Visit Shop Button */}
             <button
@@ -216,14 +230,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="header-visit-shop-btn"
               onClick={() => {
                 if (onVisitShop) onVisitShop();
-                else if (onOpenApplyModal) onOpenApplyModal();
-                else handleNavClick('contact');
+                else safeOpenUrl(SHOP_INFO.googleMapsUrl);
               }}
-              className="inline-flex items-center gap-1.5 px-3.5 sm:px-5 py-2 rounded-xl text-xs font-black bg-rose-600 text-white hover:bg-rose-700 transition-all cursor-pointer shadow-xs active:scale-95"
-              title="Visit our physical shop counter in Belda, Paschim Medinipur"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-black bg-rose-600 text-white hover:bg-rose-700 transition-all cursor-pointer shadow-xs active:scale-95"
+              title="Visit our physical shop counter in Balasundar (Bhowmik Para), Cooch Behar"
             >
               <Store className="w-4 h-4" />
-              <span>{t('nav.apply')}</span>
+              <span>Visit Shop</span>
             </button>
 
             {/* Language Switcher Pill */}
@@ -254,25 +267,36 @@ export const Navbar: React.FC<NavbarProps> = ({
               <LanguageSwitcher variant="pill" />
             </div>
 
-            <div className="grid grid-cols-2 gap-2 mb-3">
+            <div className="grid grid-cols-3 gap-2 mb-3">
               <button
                 type="button"
                 id="mobile-menu-visit-shop-btn"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   if (onVisitShop) onVisitShop();
-                  else if (onOpenApplyModal) onOpenApplyModal();
-                  else handleNavClick('contact');
+                  else safeOpenUrl(SHOP_INFO.googleMapsUrl);
                 }}
-                className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold bg-rose-600 text-white hover:bg-rose-700 shadow-xs cursor-pointer"
+                className="w-full flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[11px] font-bold bg-rose-600 text-white hover:bg-rose-700 shadow-xs cursor-pointer"
               >
                 <Store className="w-4 h-4" />
-                <span>{t('nav.apply')}</span>
+                <span>Visit Shop</span>
+              </button>
+              <button
+                type="button"
+                id="mobile-menu-apply-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (onOpenApplyModal) onOpenApplyModal();
+                }}
+                className="w-full flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[11px] font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-xs cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Apply Online</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleNavClick('tracker')}
-                className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 cursor-pointer"
+                className="w-full flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[11px] font-bold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 cursor-pointer"
               >
                 <Search className="w-4 h-4 text-slate-500" />
                 <span>Track Status</span>

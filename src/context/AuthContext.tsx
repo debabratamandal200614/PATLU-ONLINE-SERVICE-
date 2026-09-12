@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export const ADMIN_CREDENTIALS = {
-  email: 'debabratamandal200615@gmail.com',
+  email: 'debabratamandal200614@gmail.com',
+  secondaryEmail: 'debabratamandal200615@gmail.com',
   password: 'Debu@2006',
 };
 
@@ -41,7 +42,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanEmail = email.trim().toLowerCase();
     const cleanPass = pass.trim();
 
-    if (cleanEmail === ADMIN_CREDENTIALS.email.toLowerCase() && cleanPass === ADMIN_CREDENTIALS.password) {
+    const isMatchEmail = cleanEmail === ADMIN_CREDENTIALS.email.toLowerCase() || cleanEmail === ADMIN_CREDENTIALS.secondaryEmail.toLowerCase();
+    if (isMatchEmail && cleanPass === ADMIN_CREDENTIALS.password) {
       setIsAdminLoggedIn(true);
       setAdminEmail(ADMIN_CREDENTIALS.email);
       try {

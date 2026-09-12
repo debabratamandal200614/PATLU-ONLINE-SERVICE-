@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface PaymentQrModalProps {
   isOpen: boolean;
@@ -35,7 +36,7 @@ export const PaymentQrModal: React.FC<PaymentQrModalProps> = ({
   if (!isOpen) return null;
 
   const handleCopyUpi = () => {
-    navigator.clipboard.writeText(SHOP_INFO.upiId);
+    safeCopyToClipboard(SHOP_INFO.upiId);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };

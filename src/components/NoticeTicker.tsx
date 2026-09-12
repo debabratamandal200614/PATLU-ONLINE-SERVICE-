@@ -76,7 +76,7 @@ export const NoticeTicker: React.FC<NoticeTickerProps> = ({ onQuickApply }) => {
             type="button"
             onClick={() => onQuickApply(currentNotice.title)}
             className="inline-flex items-center gap-1 font-extrabold text-xs text-rose-700 bg-white hover:bg-rose-50 px-3 py-1 rounded-lg border border-rose-300 shadow-2xs cursor-pointer transition-colors"
-            title="Visit our shop counter in Belda"
+            title="Visit our shop counter in Balasundar (Bhowmik Para), Cooch Behar"
           >
             <Store className="w-3.5 h-3.5 text-rose-600" />
             <span>Visit Shop</span>

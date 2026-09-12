@@ -13,7 +13,8 @@ import {
   ArrowRight,
   ShieldAlert,
   Sparkles,
-  Store
+  Store,
+  FileText
 } from 'lucide-react';
 import { SERVICE_CATEGORIES, ServiceDetail, SHOP_INFO } from '../data/servicesData';
 import { safeOpenUrl, getWhatsAppUrl } from '../utils/safeNavigation';
@@ -249,20 +250,30 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-slate-100 flex items-center gap-2">
+              <div className="pt-4 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center gap-1.5 sm:gap-2">
+                <button
+                  type="button"
+                  id={`apply-online-btn-${service.id}`}
+                  onClick={() => onOpenApplyModal && onOpenApplyModal(service.name)}
+                  className="flex-1 py-2 px-2.5 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center justify-center gap-1 shadow-xs cursor-pointer active:scale-95"
+                  title="Apply Online with Document Upload & Verification"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Apply Online</span>
+                </button>
+
                 <button
                   type="button"
                   id={`visit-shop-btn-${service.id}`}
                   onClick={() => {
                     if (onVisitShop) onVisitShop(service.name);
-                    else if (onOpenApplyModal) onOpenApplyModal(service.name);
+                    else safeOpenUrl(SHOP_INFO.googleMapsUrl);
                   }}
-                  className="flex-1 py-2 px-3 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
-                  title="Visit our physical shop counter in Belda"
+                  className="py-2 px-2.5 rounded-lg text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-colors flex items-center justify-center gap-1 shadow-2xs cursor-pointer active:scale-95"
+                  title="Open Shop Location on Google Maps: BALASUNDAR (BHOWMIK PARA), COOCH BEHAR"
                 >
-                  <Store className="w-3.5 h-3.5" />
+                  <Store className="w-3.5 h-3.5 text-rose-600" />
                   <span>Visit Shop</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
 
                 <button
@@ -270,10 +281,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   id={`whatsapp-btn-${service.id}`}
                   onClick={() => handleWhatsAppInquiry(service)}
                   title="Inquire on WhatsApp"
-                  className="py-2 px-3 rounded-lg text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-colors flex items-center gap-1 cursor-pointer"
+                  className="py-2 px-2.5 rounded-lg text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="hidden sm:inline">WhatsApp</span>
+                  <span className="hidden xs:inline">WhatsApp</span>
                 </button>
               </div>
             </div>
